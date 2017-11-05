@@ -1,5 +1,7 @@
+import com.sun.org.apache.xerces.internal.dom.ChildNode;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
+import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
 import java.io.BufferedReader;
@@ -25,7 +27,7 @@ public class HtmlExtract {
 
     }
 
-    public void html_compare()
+    public void extract_all_products()
     {
         try {
             URLConnection spoof;
@@ -33,7 +35,7 @@ public class HtmlExtract {
             BufferedReader in;
             String strLine;
             Document doc;
-            Elements element,element2;
+            Elements element;
             spoof = url.openConnection();
             spoof.setRequestProperty("User-Agent", "Mozilla/4.0 (compatible; MSIE 5.5; Windows NT 5.0;    H010818)");
             in = new BufferedReader(new InputStreamReader(spoof.getInputStream()));
@@ -46,9 +48,48 @@ public class HtmlExtract {
             }
             doc = Jsoup.parse(HTML1);
             element= doc.select("div[cat_nam]");
-            element2=element.select("b[itemprop]");
-            for(int i=0;i<element2.size();i++)
-                System.out.println(element2);
+            for(int i=0;i<element.size();i++)
+                product_add(element.eq(i));
+        } catch (Exception e) {
+            System.err.println(e);
+        }
+
+    }
+
+    public void product_add(Elements product)
+    {
+        try {
+            Elements element;
+            int id, pret;
+            String nume, url,temp,temp2;
+
+            //pret
+            element = product.select("b[itemprop]");
+            pret=Integer.parseInt(element.select("b").first().text());
+
+            //id
+            element= product.select("div.stoc_list");
+            temp=element.select("span").attr("id").toString();
+            temp2="";
+            for(int i=1;temp.charAt(i)!='-';i++)
+                temp2=temp2+temp.charAt(i);
+            id=Integer.parseInt(temp2);
+
+            //url si nume
+            element=product.select("h4.productTitle");
+
+            //url
+            url=element.select("a").attr("href").toString();
+
+            //nume
+            nume=element.select("span").first().text();
+
+            System.out.println(id);
+            System.out.println(nume);
+            System.out.println(pret+" lei");
+            System.out.println(url);
+            System.out.println("");
+
         } catch (Exception e) {
             System.err.println(e);
         }
