@@ -4,6 +4,6 @@ public class Main {
     public static void main(String[] args) {
 
         HtmlExtract HE = new HtmlExtract("http://www.cel.ro/casti/");
-        HE.html_compare();
+        HE.extract_all_products();
     }
 }
