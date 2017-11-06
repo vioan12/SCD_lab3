@@ -17,14 +17,13 @@ public class HtmlExtractCel {
     private String HTML1 = "";
     private URL url;
 
-    HtmlExtractCel(String valueofurl)
+    public void Set_url(String valueofurl)
     {
         try {
             url = new URL(valueofurl);
         } catch (Exception e) {
             System.err.println(e);
         }
-
     }
 
     public void extract_all_products()
