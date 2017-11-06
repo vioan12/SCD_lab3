@@ -56,7 +56,7 @@ public class HtmlExtractEmag {
     {
         try {
             Elements element;
-            int id;
+            int id,sw;
             float pret;
             String nume, url,temp,temp2;
 
@@ -67,12 +67,27 @@ public class HtmlExtractEmag {
             for(int i=0;temp.charAt(i)!=' ';i++)
                 if(temp.charAt(i)!='.')
                     temp2=temp2+temp.charAt(i);
-            pret=Float.valueOf(temp2);
-            pret=pret/100;
+            sw=0;
+            for(int i=0;i<temp2.length() && sw==0;i++){
+                if(temp2.charAt(i)<48)
+                    sw=1;
+                if(temp2.charAt(i)>57)
+                    sw=1;
+            }
+            if(sw==0) {
+                pret = Float.valueOf(temp2);
+                pret = pret / 100;
+            }else {
+                pret=-1;
+            }
+
 
             //id
             element=product.select("input[name='product[]']");
-            id=Integer.parseInt(element.select("input").attr("value").toString());
+            if(!element.select("input").attr("value").toString().equals(""))
+                id=Integer.parseInt(element.select("input").attr("value").toString());
+            else
+                id=-1;
 
             //url si nume
             element=product.select("h2.card-body.product-title-zone");
