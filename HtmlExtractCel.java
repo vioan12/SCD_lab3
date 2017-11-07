@@ -26,7 +26,7 @@ public class HtmlExtractCel {
         }
     }
 
-    public void extract_all_products()
+    public Elements load_page(String Interrogation)
     {
         try {
             URLConnection spoof;
@@ -46,12 +46,22 @@ public class HtmlExtractCel {
                 HTML1 += strLine;
             }
             doc = Jsoup.parse(HTML1);
-            element= doc.select("div[cat_nam]");
-            for(int i=0;i<element.size();i++)
-                product_special_attributes(element.eq(i));
+            element= doc.select(Interrogation);
+            return element;
+
         } catch (Exception e) {
             System.err.println(e);
+            return null;
         }
+
+    }
+
+    public void extract_all_products()
+    {
+        Elements element;
+        element=load_page("div[cat_nam]");
+        for(int i=0;i<element.size();i++)
+            product_special_attributes(element.eq(i));
 
     }
 
@@ -59,20 +69,13 @@ public class HtmlExtractCel {
     {
         try {
             Elements element;
-            int id, pret;
-            String nume, url,temp,temp2;
+            int pret;
+            String nume, url,temp,id;
+            HtmlExtractCel Temp;
 
             //pret
             element = product.select("b[itemprop]");
             pret=Integer.parseInt(element.select("b").first().text());
-
-            //id
-            element= product.select("div.stoc_list");
-            temp=element.select("span").attr("id").toString();
-            temp2="";
-            for(int i=1;temp.charAt(i)!='-';i++)
-                temp2=temp2+temp.charAt(i);
-            id=Integer.parseInt(temp2);
 
             //url si nume
             element=product.select("h4.productTitle");
@@ -82,6 +85,13 @@ public class HtmlExtractCel {
 
             //nume
             nume=element.select("span").first().text();
+
+            //id
+            Temp= new HtmlExtractCel();
+            Temp.Set_url(url);
+            element=Temp.load_page("div.value");
+            id=element.select("span").first().text();
+            id=id.toUpperCase();
 
             System.out.println(id);
             System.out.println(nume);
