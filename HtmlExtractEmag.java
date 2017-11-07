@@ -23,7 +23,7 @@ public class HtmlExtractEmag {
         }
     }
 
-    public void extract_all_products()
+    public Elements load_page(String Interrogation)
     {
         try {
             URLConnection spoof;
@@ -43,12 +43,21 @@ public class HtmlExtractEmag {
                 HTML1 += strLine;
             }
             doc = Jsoup.parse(HTML1);
-            element= doc.select("div.card-item.js-product-data");
-            for(int i=0;i<element.size();i++)
-                product_special_attributes(element.eq(i));
+            element= doc.select(Interrogation);
+            return element;
         } catch (Exception e) {
             System.err.println(e);
+            return null;
         }
+
+    }
+
+    public void extract_all_products()
+    {
+        Elements element;
+        element=load_page("div.card-item.js-product-data");
+        for(int i=0;i<element.size();i++)
+            product_special_attributes(element.eq(i));
 
     }
 
@@ -56,9 +65,10 @@ public class HtmlExtractEmag {
     {
         try {
             Elements element;
-            int id,sw;
+            int sw;
             float pret;
-            String nume, url,temp,temp2;
+            String nume, url, id, temp, temp2;
+            HtmlExtractEmag Temp;
 
             //pret
             element = product.select("p.product-new-price");
@@ -81,14 +91,6 @@ public class HtmlExtractEmag {
                 pret=-1;
             }
 
-
-            //id
-            element=product.select("input[name='product[]']");
-            if(!element.select("input").attr("value").toString().equals(""))
-                id=Integer.parseInt(element.select("input").attr("value").toString());
-            else
-                id=-1;
-
             //url si nume
             element=product.select("h2.card-body.product-title-zone");
 
@@ -97,6 +99,24 @@ public class HtmlExtractEmag {
 
             //nume
             nume=element.select("a").first().text();
+
+            //id
+            Temp= new HtmlExtractEmag();
+            Temp.Set_url(url);
+            element=Temp.load_page("span.product-code-display.pull-left");
+            temp=element.select("span").first().text();
+            temp2="";
+            int i=0;
+            while (temp.charAt(i)!=':'){
+                i++;
+            }
+            i++;
+            while (i<temp.length()-1){
+                i++;
+                temp2=temp2+temp.charAt(i);
+            }
+            id=temp2;
+            id=id.toUpperCase();
 
             System.out.println(id);
             System.out.println(nume);
