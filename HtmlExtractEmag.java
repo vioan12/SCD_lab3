@@ -23,7 +23,7 @@ public class HtmlExtractEmag {
         }
     }
 
-    public Elements load_page(String Interrogation)
+    private Elements load_page(String Interrogation)
     {
         try {
             URLConnection spoof;
@@ -61,7 +61,7 @@ public class HtmlExtractEmag {
 
     }
 
-    public void product_special_attributes(Elements product)
+    private void product_special_attributes(Elements product)
     {
         try {
             Elements element;
