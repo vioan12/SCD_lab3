@@ -26,7 +26,7 @@ public class HtmlExtractCel {
         }
     }
 
-    public Elements load_page(String Interrogation)
+    private Elements load_page(String Interrogation)
     {
         try {
             URLConnection spoof;
@@ -65,17 +65,17 @@ public class HtmlExtractCel {
 
     }
 
-    public void product_special_attributes(Elements product)
+    private void product_special_attributes(Elements product)
     {
         try {
             Elements element;
-            int pret;
+            Float pret;
             String nume, url,temp,id;
             HtmlExtractCel Temp;
 
             //pret
             element = product.select("b[itemprop]");
-            pret=Integer.parseInt(element.select("b").first().text());
+            pret=Float.parseFloat(element.select("b").first().text());
 
             //url si nume
             element=product.select("h4.productTitle");
