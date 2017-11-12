@@ -9,6 +9,7 @@ import java.io.InputStreamReader;
 import java.net.URL;
 import java.net.URLConnection;
 import java.util.Date;
+import java.util.Vector;
 
 /**
  * Created by ioan on 10/31/17.
@@ -56,22 +57,25 @@ public class HtmlExtractCel {
 
     }
 
-    public void extract_all_products()
+    public Vector<Casca> extract_all_products()
     {
         Elements element;
         element=load_page("div[cat_nam]");
+        Vector<Casca> CastiCel =new Vector<Casca>();
         for(int i=0;i<element.size();i++)
-            product_special_attributes(element.eq(i));
+            CastiCel.add(product_special_attributes(element.eq(i)));
+        return CastiCel;
 
     }
 
-    private void product_special_attributes(Elements product)
+    private Casca product_special_attributes(Elements product)
     {
         try {
             Elements element;
             Float pret;
             String nume, url,temp,id;
             HtmlExtractCel Temp;
+            Casca casca = new Casca();
 
             //pret
             element = product.select("b[itemprop]");
@@ -93,16 +97,12 @@ public class HtmlExtractCel {
             id=element.select("span").first().text();
             id=id.toUpperCase();
 
-            System.out.println(id);
-            System.out.println(nume);
-            System.out.println(pret+" lei");
-            System.out.println(url);
-            System.out.println("");
-
-            //Add function
+            casca.Add(id,nume,pret,url);
+            return casca;
 
         } catch (Exception e) {
             System.err.println(e);
+            return null;
         }
     }
 
