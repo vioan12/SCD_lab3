@@ -8,12 +8,12 @@ import java.util.Vector;
 public class MainThread extends Thread {
 
     private static boolean done = false;
-    public Vector<Casca> Casti = new Vector<Casca>();
+    public static Vector<Casca> ListaCasti = new Vector<Casca>();
 
     private Thread[] thread;
     MainThread()
     {
-        thread = new Thread[121];
+        thread = new Thread[1];
     }
 
     public void run()
