@@ -6,6 +6,7 @@ import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.net.URL;
 import java.net.URLConnection;
+import java.util.Vector;
 
 /**
  * Created by ioan on 11/5/17.
@@ -52,16 +53,18 @@ public class HtmlExtractEmag {
 
     }
 
-    public void extract_all_products()
+    public Vector<Casca> extract_all_products()
     {
         Elements element;
         element=load_page("div.card-item.js-product-data");
+        Vector<Casca> CastiEmag =new Vector<Casca>();
         for(int i=0;i<element.size();i++)
-            product_special_attributes(element.eq(i));
+            CastiEmag.add(product_special_attributes(element.eq(i)));
+        return CastiEmag;
 
     }
 
-    private void product_special_attributes(Elements product)
+    private Casca product_special_attributes(Elements product)
     {
         try {
             Elements element;
@@ -69,6 +72,7 @@ public class HtmlExtractEmag {
             float pret;
             String nume, url, id, temp, temp2;
             HtmlExtractEmag Temp;
+            Casca casca = new Casca();
 
             //pret
             element = product.select("p.product-new-price");
@@ -118,16 +122,12 @@ public class HtmlExtractEmag {
             id=temp2;
             id=id.toUpperCase();
 
-            System.out.println(id);
-            System.out.println(nume);
-            System.out.println(pret+" lei");
-            System.out.println(url);
-            System.out.println("");
-
-            //Add function
+            casca.Add(id,nume,pret,url);
+            return casca;
 
         } catch (Exception e) {
             System.err.println(e);
+            return null;
         }
     }
 }
