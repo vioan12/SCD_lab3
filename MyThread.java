@@ -33,12 +33,13 @@ public class MyThread extends Thread
     public void run()
     {
         try {
-
+            SubListaCasti_Cel=new Vector<Casca>();
             if(cel_url!=null) {
                 sleep(2000);
                 SubListaCasti_Cel=HECel.extract_all_products();
             }
 
+            SubListaCasti_Emag=new Vector<Casca>();
             if(emag_url!=null) {
                 sleep(2000);
                 SubListaCasti_Emag=HEEmag.extract_all_products();
