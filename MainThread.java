@@ -42,17 +42,17 @@ public class MainThread extends Thread {
                     System.out.println(ListaCasti.elementAt(i).Get_nume());
                     if(ListaCasti.elementAt(i).Get_n()==2){
                         if(ListaCasti.elementAt(i).Get_pret1()<ListaCasti.elementAt(i).Get_pret2()){
-                            System.out.println("Pretul cel mai bun: ");
-                            System.out.print(ListaCasti.elementAt(i).Get_pret1());
+                            System.out.print("Pretul cel mai bun: ");
+                            System.out.println(ListaCasti.elementAt(i).Get_pret1());
                             System.out.println(ListaCasti.elementAt(i).Get_url1());
                         } else {
                             if(ListaCasti.elementAt(i).Get_pret2()<ListaCasti.elementAt(i).Get_pret1()) {
-                                System.out.println("Pretul cel mai bun: ");
-                                System.out.print(ListaCasti.elementAt(i).Get_pret2());
+                                System.out.print("Pretul cel mai bun: ");
+                                System.out.println(ListaCasti.elementAt(i).Get_pret2());
                                 System.out.println(ListaCasti.elementAt(i).Get_url2());
                             } else {
-                                System.out.println("Preturi egale: ");
-                                System.out.print(ListaCasti.elementAt(i).Get_pret1());
+                                System.out.print("Preturi egale: ");
+                                System.out.println(ListaCasti.elementAt(i).Get_pret1());
                                 System.out.println(ListaCasti.elementAt(i).Get_url1());
                                 System.out.println(ListaCasti.elementAt(i).Get_url2());
                             }
