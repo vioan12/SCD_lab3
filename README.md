@@ -5,8 +5,7 @@ Aplicatia presupune construirea unui sistem pentru extragerea preturilor unor ca
 http://www.cel.ro/casti/
 Preturile arata astfel
 <b itemprop="price" content="129">129</b>
-Id
-<div class="stoc_list"><span id="s113989-0"><b class="info_stoc in_stoc">in stoc</b></span></div>
+Id<div class="stoc_list"><span id="s113989-0"><b class="info_stoc in_stoc">in stoc</b></span></div>
 URL si Titlul
 <h4 class="productTitle"><a href="http://www.cel.ro/casti/casti-cu-microfon-sennheiser-pc-8-interfata-usb-pMCMwPT0n-l/" class="productListing-data-b product_link product_name"><span itemprop="name">Casti cu microfon Sennheiser PC 8 interfata USB</span></a></h4>
 https://www.emag.ro/casti-pc/c?ref=hp_menu_quick-nav_23_649&type=category
